@@ -1,4 +1,4 @@
-## slackware 1.0.1
+## slackware 1.01
 
 #### 资源
 
