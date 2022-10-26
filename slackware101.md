@@ -57,7 +57,7 @@ sudo mount /dev/loop0p2 tmp
 拷贝内容到磁盘,必须是install目录，安装脚本里写死了
 sudo cp -r slackware-1.01 tmp/install
 
-到这个目录里，从a2到a13把里面的DISKA2类似的文件全部修改成小写
+到这个目录里，从a2到a13把里面的DISKA2类似的文件全部修改成小写，不知道为啥，但是看了安装脚本是都是小写的，否则安装不了。
 cd tmp/install/a2
 mv DISKA2 diska2
 
