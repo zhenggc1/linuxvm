@@ -3,7 +3,7 @@
 #### 资源
 
 1. [安装包下载地址](https://mirrors.slackware.com/slackware/slackware-1.01/)
-1. 镜像文件下载地址，还在找哪里放比较好，这个还比较小，压缩后才40M，但是预期以后会很大
+1. [镜像文件下载地址](https://app.box.com/s/y4qcrcksn2j10q606z5c02sohydpv4ro)
 
 #### 步骤
 
