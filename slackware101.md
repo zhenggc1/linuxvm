@@ -99,4 +99,28 @@ doinstall /dev/hda1
 qemu-system-i386 -hda sw101.qcow2
 
 ```
+9. 继续安装软件-编译相关
+```
+mount -t ext2 /dev/hda2 /mnt
+安装下gcc和相关文件
+cd /mnt/install/a11
+sysinstall -install gcc245.tgz
+cd /mnt/install/a12
+sysinstall -install lib441.tgz
+sysinstall -install inc411.tgz
+cd /mnt/install/a7
+sysinstall -install binutils.tgz
 
+写个简单的hello world的main.c
+就可以gcc -o main main.c
+
+```
+
+10. 继续安装软件-网络部分
+```
+cd /mnt/install/a5
+sysinstall -install tcpip.tgz
+
+重启后，就可以
+ping 127.0.0.1
+```
