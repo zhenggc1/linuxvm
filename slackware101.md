@@ -99,6 +99,7 @@ doinstall /dev/hda1
 qemu-system-i386 -hda sw101.qcow2
 
 ```
+
 9. 继续安装软件-编译相关
 ```
 mount -t ext2 /dev/hda2 /mnt
@@ -123,4 +124,26 @@ sysinstall -install tcpip.tgz
 
 重启后，就可以
 ping 127.0.0.1
+
+但是网卡驱动很难找了，暂时也没有搞定网络
+```
+
+11. 编译内核
+```
+cd /mnt/install/a3
+sysinstall -install make.tgz
+
+cd /mnt/install/a8
+sysinstall -install lx99p12.tgz
+
+cd /mnt/install/a11
+sysinstall -install gxx245.tgz
+
+cd /linux
+make mrproper
+make config
+make dep
+make zImage
+make zlilo
+没错误的话，可以体验新内核了
 ```
