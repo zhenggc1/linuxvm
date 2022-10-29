@@ -20,11 +20,17 @@ qemu-system-i386 -hda sw101.qcow2 -fda fda.img -boot c
 3. 启动好后，在slackware1.01里root登录后操作，格式化软盘
 ```
 mke2fs /dev/fd0
+
+这里可以用minix 的文件系统，这个在启动的时候少一步在mount root的时候要回车确定
+
+mkfs /dev/fd0 1440
 ```
 
 4. 加载磁盘，开始添加文件
 ```
 mount -t ext2 /dev/fd0 /mnt
+
+如果用minix文件系统，-t 带 minix
 
 cd /mnt
 ```
@@ -61,7 +67,7 @@ rc如下
 #!/bin/sh
 /bin/mount -av
 
-fstab如下
+fstab如下,如果用minix系统，这里用minix代替ext2
 /dev/fd0     /    ext2    defaults
 none    /proc    proc    defaults
 
