@@ -76,9 +76,10 @@ cp /etc/lilo/map etc/lilo
 
 创建etc/lilo/config，内容如下
 boot = /dev/fd0
-install = /dev/lilo/boot.b
+install = /etc/lilo/boot.b
 compact
 image = /zImage
+    ramdisk = 1440
     root = /dev/fd0
     vga = normal
 
@@ -96,7 +97,7 @@ umount /mnt
 9. 启动最小的linux
 ```
 上述操作完后，可以直接关闭slackware1.01
-或者用qemu的控制台命令，不然如果做的不对老是要修改也是很烦
+或者用qemu的控制台命令，不然如果做的不对老是要启动slackware再做修改也是很烦
 qemu-system-i386 -fda fda.img
 
 启动后，就可以简单的浏览文件目录看看
