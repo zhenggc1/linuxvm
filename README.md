@@ -13,4 +13,4 @@
 
 #### 列表
 1. [slackware 1.01](slackware101.md)
-2. 
+2. [minimum linux](minimum.md)
