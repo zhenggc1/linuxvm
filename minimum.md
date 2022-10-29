@@ -63,7 +63,7 @@ rc如下
 
 fstab如下
 /dev/fd0     /    ext2    defaults
-/proc    /proc    proc    defaults
+none    /proc    proc    defaults
 
 ```
 
