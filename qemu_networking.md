@@ -15,7 +15,7 @@ ip link add br0 type bridge
 ip link set br0 up
 
 去掉enp4s0的ip，网络地址需要替换成大家自己的
-ip addr del 192.168.1.*/24 dev enps0
+ip addr del 192.168.1.*/24 dev enp4s0
 
 增加br0的ip，地址也需要替换
 ip addr add 192.168.1.*/24 dev br0
@@ -50,13 +50,13 @@ sudo qemu-system-i386 -netdev tap,id=tap0,script=no,downscript=no,ifname=tap0 -d
 
 添加文件 /etc/qemu/bridge.conf，添加一行内容
 allow br0
-这个是说允许qemu使用br0，没有这行，会报access denied by acl file
+这个是说允许qemu使用br0，没有这行，会报access denied by acl file，并且给权限给到了qemu-bridge-helper，不用root也可以创建tap接口
 
 ```
 
-6. 然后就可以直接玩了
+6. 然后就可以直接玩了，这里可以用一般用户权限来执行，不需要root权限
 ```
-sudo qemu-system-i386 -netdev bridge,id=n1,helper=/usr/lib/qemu/qemu-bridge-helper -device virtio-net-pci,netdev=n1
+qemu-system-i386 -netdev bridge,id=n1,helper=/usr/lib/qemu/qemu-bridge-helper -device virtio-net-pci,netdev=n1
 
 这个启动的时候可以在host上执行ip a看看，会自动增加一个tap的接口
 没啥报错也ok了
@@ -72,5 +72,5 @@ helper的位置如果在PATH下，就不需要指定了，archlinux放在非PATH
 -device virtio-net-pci,netdev=tap0,mac=52:54:00:12:34:56
 动下最后几位，不要重复就可以
 另外如果你要给虚拟机多加网卡，就重复上面的netdev和device，然后换id和mac地址就可以
-以上三点，上述两种方式都适用的
+以上三点，上述两种方式都适用的，当然如果是手工创建tap接口的，也需要手工多创建几个，综合来讲，还是选择第二种比较方便。
 ```
