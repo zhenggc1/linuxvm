@@ -11,6 +11,10 @@
 1. 这里本着分享和做一次的原则，希望可以给爱玩的人带来一些帮助
 
 
-#### 列表
+#### 系统列表
 1. [slackware 1.01](slackware101.md)
 2. [minimum linux](minimum.md)
+
+
+#### 网络设置
+1. [qemu 网络](qemu_networking.md)
