@@ -125,7 +125,43 @@ sysinstall -install tcpip.tgz
 重启后，就可以
 ping 127.0.0.1
 
-但是网卡驱动很难找了，暂时也没有搞定网络
+找到qemu这边可以支持ne2k_isa的网卡，用以下命令启动，网络部分参考[qemu 网络](qemu_networking.md)
+
+qemu-system-i386 --netdev bridge,id=n1 --device driver=ne2k_isa,netdev=n1 -hda sw101.qcow2
+
+
+启动后，应该可以在启动信息里看到发现网卡ne2k，应该如下字样
+eth0: NE2000 found, using IRQ *
+
+登录后可以通过ifconfig -a 看到eth0
+
+开始编辑 /conf/net/rc.inet1，添加
+/etc/ifconfig eth0 192.168.1.*
+/etc/route add 192.168.1.0
+/etc/route add default gw 192.168.1.1 mertic 1
+
+然后执行以下这个文件，验证的时候执行，重启后不需要执行，在rc.local执行到
+/conf/net/rc.inet1
+这个时候没有报错的话，就配置好ip和route了
+可以通过
+ifconfig和route命令看下
+也可以通过 ping 192.168.1.1 来验证以下是否ping通
+
+再接着，可以设置dns解析
+
+修改/conf/net/host.conf，如下，应该是第一行最后添加一个bind就可以
+order hosts,bind
+multi
+
+修改/conf/net/resolv.conf
+添加
+nameserver 192.168.1.1
+
+这个时候应该可以ping通外部的域名，如下
+ping www.163.com
+
+但是这里对一些dns服务器不兼容，如adhomeguard等，
+
 ```
 
 11. 编译内核
