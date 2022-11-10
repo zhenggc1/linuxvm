@@ -42,6 +42,7 @@ ip link set tap0 up
 sudo qemu-system-i386 -netdev tap,id=tap0,script=no,downscript=no,ifname=tap0 -device virtio-net-pci,netdev=tap0
 
 看到启动没报错，基本就没有问题了，以后想用网络，就带上这段网络的部分
+当然这个部分可以通过写脚本实现，放在script和downscript里，这样，可以省略3，然后每次用完，还可以把tap0给清理掉
 
 ```
 
