@@ -117,7 +117,7 @@ sysinstall -install binutils.tgz
 
 ```
 
-10. 继续安装软件-网络部分
+10. 继续安装软件-网络部分，有关host和guest网络的打通，参考[qemu 网络](qemu_networking.md)
 ```
 cd /mnt/install/a5
 sysinstall -install tcpip.tgz
@@ -125,7 +125,7 @@ sysinstall -install tcpip.tgz
 重启后，就可以
 ping 127.0.0.1
 
-找到qemu这边可以支持ne2k_isa的网卡，用以下命令启动，网络部分参考[qemu 网络](qemu_networking.md)
+找到qemu这边可以支持ne2k_isa的网卡，用以下命令启动
 
 qemu-system-i386 --netdev bridge,id=n1 --device driver=ne2k_isa,netdev=n1 -hda sw101.qcow2
 
