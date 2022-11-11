@@ -127,7 +127,7 @@ ping 127.0.0.1
 
 找到qemu这边可以支持ne2k_isa的网卡，用以下命令启动
 
-qemu-system-i386 --netdev bridge,id=n1 --device driver=ne2k_isa,netdev=n1 -hda sw101.qcow2
+qemu-system-i386 -netdev bridge,id=n1 -device driver=ne2k_isa,netdev=n1 -hda sw101.qcow2
 
 
 启动后，应该可以在启动信息里看到发现网卡ne2k，应该如下字样
