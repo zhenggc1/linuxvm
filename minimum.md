@@ -113,7 +113,7 @@ fstab如下,如果用minix系统，这里用minix代替ext2
 none    /proc    proc    defaults
 
 其他的拷贝，不用啥变更 etc目录下的
-getty group init inittab login.defs passwd shadow shutdown update
+getty gettydefs group init inittab login.defs passwd shadow shutdown update
 
 bin下的
 login mail
