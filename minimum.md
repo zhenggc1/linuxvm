@@ -59,21 +59,8 @@ cp /bin/ls bin
 cp /bin/cp bin
 ```
 
-7. 处理etc
-```
-关键两个文件 rc和fstab
 
-rc如下
-#!/bin/sh
-/bin/mount -av
-
-fstab如下,如果用minix系统，这里用minix代替ext2
-/dev/fd0     /    ext2    defaults
-none    /proc    proc    defaults
-
-```
-
-8. 处理启动，lilo
+7. 处理启动，lilo
 ```
 在etc下建立一个文件夹lilo，这个目录可以在安装好lilo后删除，如果为了极限的大小
 然后拷贝几个文件过来
@@ -100,13 +87,42 @@ umount /mnt
 
 ```
 
-9. 启动最小的linux
+8. 启动最小的linux
 ```
 上述操作完后，可以直接关闭slackware1.01
 或者用qemu的控制台命令，不然如果做的不对老是要启动slackware再做修改也是很烦
 qemu-system-i386 -fda fda.img
 
 启动后，就可以简单的浏览文件目录看看
+```
+
+9. sysvint，getty，login，passwd等
+```
+关键两个文件 rc和fstab
+
+rc如下
+#!/bin/sh
+/bin/mount -av
+
+设置成可执行文件
+chmod u+x rc
+
+
+fstab如下,如果用minix系统，这里用minix代替ext2
+/dev/fd0     /    ext2    defaults
+none    /proc    proc    defaults
+
+其他的拷贝，不用啥变更 etc目录下的
+getty group init inittab login.defs passwd shadow shutdown update
+
+bin下的
+login mail
+
+建立usr下的目录
+/usr/spool/mail
+
+然后就可以启动了，这里就可以让输入root，目前没有密码
+
 ```
 
 10. 其他，大家可以加更多自己可以玩的命令，但是这里的软盘大小只有1440，如果为了添加更多的内容，后面就initrd之类压缩的内容了，这里没法继续展开了
