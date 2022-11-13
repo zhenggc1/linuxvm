@@ -124,5 +124,51 @@ login mail
 然后就可以启动了，这里就可以让输入root，目前没有密码
 
 ```
+10. 网络相关
 
-10. 其他，大家可以加更多自己可以玩的命令，但是这里的软盘大小只有1440k，如果为了添加更多的内容，后面就initrd之类压缩的内容了，这里没法继续展开了
+```
+需要拷贝的内容，etc下内容，部分来之conf/net，但是在etc下建立了link，简单操作都拷贝到etc下
+etc下的arp hosts host.conf HOSTNAME resolv.conf services protocols syslog.conf inet.conf route ifconfig
+bin下的，部分文件来自usr/etc hostname netstat ping
+usr/bin下的，这个来自usr/etc，按照现代目录结构，用usr/bin inetd syslogd
+
+然后就是修改文件，如果都是参考slackware1.01的内容，就只要修改以下
+hosts
+HOSTNAME 
+这两个按照自己的内容填写主机名
+
+
+添加syslogd的目录
+/var/adm
+
+修改inet.conf，仅仅保留，internal的部分，如果需要外部支持的，需要拷贝外部支持的文件
+echo    stream  tcp     nowait  root    internal
+echo    dgram   udp     wait    root    internal
+discard stream  tcp     nowait  root    internal
+discard dgram   udp     wait    root    internal
+daytime stream  tcp     nowait  root    internal
+daytime dgram   udp     wait    root    internal
+chargen stream  tcp     nowait  root    internal
+chargen dgram   udp     wait    root    internal
+
+
+在etc/rc上添加ip相关，以及启动相关服务
+
+hostname -S yourhostname
+ifconfig lo up
+route add 127.0.0.1
+ifconfig eth0 192.168.1.212
+route add 192.168.1.0
+route add default gw 192.168.1.1 mertic 1
+
+syslogd &
+
+inetd &
+
+这样后就可以ping基本内部和外部地址了。这里syslogd和inetd都不是必要的。这里仅做为参考
+
+启动虚拟机的时候要带上网卡信息，具体也参考slackware101部分
+
+```
+
+11. 其他，大家可以加更多自己可以玩的命令，但是这里的软盘大小只有1440k，如果为了添加更多的内容，后面就initrd之类压缩的内容了，这里没法继续展开了
