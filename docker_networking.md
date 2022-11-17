@@ -16,7 +16,7 @@
 3. 现在主机上设置一个macvlan的接口，并且设置ip地址
 ```
 ip link add vlan10 link enp4s0 type macvlan mode bridge
-ip addr add vlan10 192.168.1.159/24
+ip addr add 192.168.1.159/24 dev vlan10
 
 ip route add 192.168.1.128/27 via 192.168.1.159 dev vlan10
 
