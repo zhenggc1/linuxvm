@@ -18,4 +18,4 @@
 
 #### 网络设置
 1. [qemu 网络](qemu_networking.md)
-2. [docker 网络](docker_netwoking.md)
+2. [docker 网络](docker_networking.md)
