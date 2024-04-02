@@ -25,11 +25,12 @@ ip route add 192.168.1.128/27 via 192.168.1.159 dev vlan10
 
 4. 创建docker的macvlan网络
 ```
-docker network create -d macvlan --subnet=192.168.1.0/24 -o parent=enp4s0 --gateway 192.168.1.1 --ip-range 192.168.1.128/27 --aux-address 'host=192.168.1.159' home
+docker network create -d macvlan --subnet=192.168.1.0/24 -o parent=enp4s0 \
+ --gateway 192.168.1.1 --ip-range 192.168.1.128/27 --aux-address 'host=192.168.1.159' home
 
 ```
 
-5. 就可以适用docker来创建容器了
+5. 就可以使用docker来创建容器了
 ```
 docker run -it --rm --name test --network home alpine:latest
 
@@ -45,3 +46,17 @@ ip a 可以看到ip地址，第一个分配的应该是192.168.1.128
 ```
 
 6. 有这以后，感觉就是一台独立的主机了，在你自己网络的内部可以随便玩。
+
+### 直接打通本机的网桥
+1. 如果本机已经有网桥了，可以直接打通本机的网桥
+2. 首先要禁止docker启动的时候启动默认网桥，iptables也不用了，在/etc/docker/daemon.json中添加以下内容，要符合json的格式，如果原来没有需要参考daemon.json的写法
+```
+"iptables":false,
+"bridge":"none"
+```
+3. 重启docker服务后，可以看到原来名为bridge的网络已经没有了，这个时候创建自己的bridge网络，subnet是你的子网，iprange是docker可以使用的ip地址列表，br0是你的本机网桥的名称，home是你的docker使用的网络名称
+```
+docker network create --subnet=192.168.1.0/24 --gateway=192.168.1.1 \
+ --ip-range 192.168.1.128/26 -o com.docker.network.bridge.name=br0 -o \
+ com.docker.network.bridge.inhibit_ipv4=true home
+```
